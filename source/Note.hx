@@ -41,7 +41,7 @@ class Note extends FlxSprite
 	public static var EX1_NOTE:Int = 4;
 	public static var EX2_NOTE:Int = 5;
 
-	public static var tooMuch:Float = 30;
+	public static var tooMuch:Float = 26;
 
 	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false)
 	{
@@ -56,8 +56,8 @@ class Note extends FlxSprite
 		}
 		else if (PlayState.SONG.mania == 2)
 		{
-			swagWidth = 90 * 0.7;
-			noteScale = 0.46;
+			swagWidth = 80 * 0.7;
+			noteScale = 0.42;
 			mania = 2;
 		}
 		super();
@@ -127,7 +127,7 @@ class Note extends FlxSprite
 				animation.addByPrefix('violetScroll', 'violet0');
 				animation.addByPrefix('blackScroll', 'black0');
 				animation.addByPrefix('darkScroll', 'dark0');
-
+				animation.addByPrefix('pinkScroll', 'pink0');
 
 				animation.addByPrefix('purpleholdend', 'pruple end hold');
 				animation.addByPrefix('greenholdend', 'green hold end');
@@ -138,6 +138,7 @@ class Note extends FlxSprite
 				animation.addByPrefix('violetholdend', 'violet hold end');
 				animation.addByPrefix('blackholdend', 'black hold end');
 				animation.addByPrefix('darkholdend', 'dark hold end');
+				animation.addByPrefix('pinkholdend', 'pink hold end');
 
 				animation.addByPrefix('purplehold', 'purple hold piece');
 				animation.addByPrefix('greenhold', 'green hold piece');
@@ -148,6 +149,7 @@ class Note extends FlxSprite
 				animation.addByPrefix('violethold', 'violet hold piece');
 				animation.addByPrefix('blackhold', 'black hold piece');
 				animation.addByPrefix('darkhold', 'dark hold piece');
+				animation.addByPrefix('pinkhold', 'pink hold piece');
 
 				setGraphicSize(Std.int(width * noteScale));
 				updateHitbox();
@@ -161,7 +163,7 @@ class Note extends FlxSprite
 		}
 		var frameN:Array<String> = ['purple', 'blue', 'green', 'red'];
 		if (mania == 1) frameN = ['purple', 'green', 'red', 'yellow', 'blue', 'dark'];
-		else if (mania == 2) frameN = ['purple', 'blue', 'green', 'red', 'white', 'yellow', 'violet', 'black', 'dark'];
+		else if (mania == 2) frameN = ['purple', 'blue', 'green', 'red', 'white', 'pink', 'yellow', 'violet', 'black', 'dark'];
 
 		x += swagWidth * noteData;
 		animation.play(frameN[noteData] + 'Scroll');

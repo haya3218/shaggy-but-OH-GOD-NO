@@ -84,7 +84,7 @@ class ChartingState extends MusicBeatState
 
 	var leftIcon:HealthIcon;
 	var rightIcon:HealthIcon;
-	var keyAmmo:Array<Int> = [4, 6, 9];
+	var keyAmmo:Array<Int> = [4, 6, 10];
 
 	override function create()
 	{
@@ -204,7 +204,7 @@ class ChartingState extends MusicBeatState
 			trace('vos sos puto');
 		};
 
-		var m_check2 = new FlxUICheckBox(60, 45, null, null, "9", 100);
+		var m_check2 = new FlxUICheckBox(60, 45, null, null, "10", 100);
 		m_check2.checked = (_song.mania == 2);
 		m_check2.callback = function()
 		{
@@ -504,10 +504,10 @@ class ChartingState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		curStep = recalculateSteps();
-		if (_song.mania == 2 && gridBG.width != S_GRID_SIZE * 18)
+		if (_song.mania == 2 && gridBG.width != S_GRID_SIZE * 20)
 		{
 			remove(gridBG);
-			gridBG = FlxGridOverlay.create(S_GRID_SIZE, GRID_SIZE, S_GRID_SIZE * 18, GRID_SIZE * 16);
+			gridBG = FlxGridOverlay.create(S_GRID_SIZE, GRID_SIZE, S_GRID_SIZE * 20, GRID_SIZE * 16);
 			add(gridBG);
 		}
 		if (_song.mania == 1 && gridBG.width != GRID_SIZE * 12)
@@ -538,7 +538,7 @@ class ChartingState extends MusicBeatState
 		_song.song = typingShit.text;
 
 		strumLine.y = getYfromStrum((Conductor.songPosition - sectionStartTime()) % (Conductor.stepCrochet * _song.notes[curSection].lengthInSteps));
-		if (_song.mania == 2) strumLine.x = 220;
+		if (_song.mania == 2) strumLine.x = 180;
 		else strumLine.x = 0;
 
 		if (curBeat % 4 == 0 && curStep >= 16 * (curSection + 1))
