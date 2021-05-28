@@ -1,5 +1,5 @@
-# The shaggy mod source code
+# JOKE MOD
 
-This is the forked repository from the Friday Night Funkin' VS Shaggy mod.
+This is a forked repository from the Friday Night Funkin' VS Shaggy mod.
 
-**THIS IS NOT TO BE TAKEN SERIOUSLY, JUST A THOUGHT EXPERIMENT**
+**THIS IS NOT TO BE TAKEN SERIOUSLY, JUST A THOUGHT EXPERIMENT. I WANTED TO SEE HOW MANY ARROWS YOU CAN REALLY GET IN GOD EATER BEFORE YOU FUCKING DIE**
