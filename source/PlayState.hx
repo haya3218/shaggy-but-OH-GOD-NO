@@ -56,7 +56,7 @@ class PlayState extends MusicBeatState
 	public static var goods:Int = 0;
 	public static var sicks:Int = 0;
 	public static var mania:Int = 0;
-	public static var keyAmmo:Array<Int> = [4, 6, 12];
+	public static var keyAmmo:Array<Int> = [4, 6, 21];
 
 	public static var rep:Replay;
 	public static var loadRep:Bool = false;
@@ -1489,10 +1489,10 @@ class PlayState extends MusicBeatState
 			{
 				if (ctrTime == 0)
 				{
-					var cText:Array<String> = ['Q', 'A', 'Z', 'W', 'S', 'X', 'E', 'D', 'C', 'R', 'F', 'V'];
+					var cText:Array<String> = ['1', 'Q', 'A', '2', 'Z', 'W', 'S', '3', 'X', 'E', 'D', '4', 'C', 'R', 'F', '5', 'V', 'T', 'G', '6', 'B'];
 
-					var nJx = 75;
-					for (i in 0...12)
+					var nJx = 41;
+					for (i in 0...21)
 					{
 						noticeB[i] = new FlxText(0, 0, 0, cText[i], 32);
 						noticeB[i].x = FlxG.width * 0.5 + nJx*i + 55;
@@ -1532,7 +1532,7 @@ class PlayState extends MusicBeatState
 				}
 				else
 				{
-					for (i in 0...12)
+					for (i in 0...21)
 					{
 						if (ctrTime < 600)
 						{
@@ -1547,7 +1547,7 @@ class PlayState extends MusicBeatState
 						}
 					}
 				}
-				for (i in 0...12)
+				for (i in 0...21)
 				{
 					nShadowB[i].alpha = noticeB[i].alpha;
 				}
@@ -1852,8 +1852,8 @@ class PlayState extends MusicBeatState
 							nSuf = ['LEFT', 'UP', 'RIGHT', 'LEFT', 'DOWN', 'RIGHT'];
 							pPre = ['left', 'up', 'right', 'yel', 'down', 'dark'];
 						case 2:
-							nSuf = ['LEFT', 'DOWN', 'UP', 'RIGHT', 'SPACE', 'SPACE', 'SPACE', 'SPACE', 'LEFT', 'DOWN', 'UP', 'RIGHT'];
-							pPre = ['left', 'down', 'up', 'right', 'white', 'pink', 'orange', 'blurple', 'yel', 'violet', 'black', 'dark'];
+							nSuf = ['SHARPLEFT', 'SHARPLEFT', 'SHARPLEFT', 'LEFT', 'DOWN', 'UP', 'RIGHT', 'SPACE', 'PLUS', 'SPACE', 'PLUS', 'SPACE', 'PLUS', 'SPACE', 'LEFT', 'DOWN', 'UP', 'RIGHT', 'SHARPRIGHT', 'SHARPRIGHT', 'SHARPRIGHT'];
+							pPre = ['mardi', 'deep', 'aqua', 'left', 'down', 'up', 'right', 'white', 'old', 'pink', 'lavender', 'orange', 'infra', 'blurple', 'yel', 'violet', 'black', 'dark', 'gray', 'jonquil', 'shamrock'];
 							babyArrow.x -= Note.tooMuch;
 					}
 					babyArrow.x += Note.swagWidth * i;
@@ -2153,7 +2153,7 @@ class PlayState extends MusicBeatState
 			spr.y = hudArrYPos[spr.ID];
 			if (spr.animation.curAnim.name == 'confirm')
 			{
-				var jj:Array<Float> = [0, 3, 22];
+				var jj:Array<Float> = [0, 3, 72];
 				spr.x = hudArrXPos[spr.ID] + jj[mania];
 				spr.y = hudArrYPos[spr.ID] + jj[mania];
 			}
@@ -2517,26 +2517,44 @@ class PlayState extends MusicBeatState
 								case 0:
 									dad.playAnim('singLEFT' + altAnim, true);
 								case 1:
-									dad.playAnim('singDOWN' + altAnim, true);
+									dad.playAnim('singLEFT' + altAnim, true);
 								case 2:
-									dad.playAnim('singUP' + altAnim, true);
+									dad.playAnim('singLEFT' + altAnim, true);
 								case 3:
-									dad.playAnim('singRIGHT' + altAnim, true);
+									dad.playAnim('singLEFT' + altAnim, true);
 								case 4:
-									dad.playAnim('singLEFT' + altAnim, true);
-								case 5:
 									dad.playAnim('singDOWN' + altAnim, true);
-								case 6:
+								case 5:
 									dad.playAnim('singUP' + altAnim, true);
-								case 7:
+								case 6:
 									dad.playAnim('singRIGHT' + altAnim, true);
-								case 8:
+								case 7:
 									dad.playAnim('singLEFT' + altAnim, true);
+								case 8:
+									dad.playAnim('singRIGHT' + altAnim, true);
 								case 9:
 									dad.playAnim('singDOWN' + altAnim, true);
 								case 10:
-									dad.playAnim('singUP' + altAnim, true);
+									dad.playAnim('singLEFT' + altAnim, true);
 								case 11:
+									dad.playAnim('singUP' + altAnim, true);
+								case 12:
+									dad.playAnim('singDOWN' + altAnim, true);
+								case 13:
+									dad.playAnim('singRIGHT' + altAnim, true);
+								case 14:
+									dad.playAnim('singRIGHT' + altAnim, true);
+								case 15:
+									dad.playAnim('singDOWN' + altAnim, true);
+								case 16:
+									dad.playAnim('singUP' + altAnim, true);
+								case 17:
+									dad.playAnim('singRIGHT' + altAnim, true);
+								case 18:
+									dad.playAnim('singRIGHT' + altAnim, true);
+								case 19:
+									dad.playAnim('singRIGHT' + altAnim, true);
+								case 20:
 									dad.playAnim('singRIGHT' + altAnim, true);
 							}
 						}
@@ -3005,6 +3023,15 @@ class PlayState extends MusicBeatState
 		var n9Hold:Bool = false;
 		var n10Hold:Bool = false;
 		var n11Hold:Bool = false;
+		var n12Hold:Bool = false;
+		var n13Hold:Bool = false;
+		var n14Hold:Bool = false;
+		var n15Hold:Bool = false;
+		var n16Hold:Bool = false;
+		var n17Hold:Bool = false;
+		var n18Hold:Bool = false;
+		var n19Hold:Bool = false;
+		var n20Hold:Bool = false;
 
 		var reachBeat:Float;
 	private function keyShit():Void
@@ -3059,6 +3086,15 @@ class PlayState extends MusicBeatState
 		var n9 = controls.N9;
 		var n10 = controls.N10;
 		var n11 = controls.N11;
+		var n12 = controls.N12;
+		var n13 = controls.N13;
+		var n14 = controls.N14;
+		var n15 = controls.N15;
+		var n16 = controls.N16;
+		var n17 = controls.N17;
+		var n18 = controls.N18;
+		var n19 = controls.N19;
+		var n20 = controls.N20;
 
 		var n0P = controls.N0_P;
 		var n1P = controls.N1_P;
@@ -3072,6 +3108,15 @@ class PlayState extends MusicBeatState
 		var n9P = controls.N9_P;
 		var n10P = controls.N10_P;
 		var n11P = controls.N11_P;
+		var n12P = controls.N12_P;
+		var n13P = controls.N13_P;
+		var n14P = controls.N14_P;
+		var n15P = controls.N15_P;
+		var n16P = controls.N16_P;
+		var n17P = controls.N17_P;
+		var n18P = controls.N18_P;
+		var n19P = controls.N19_P;
+		var n20P = controls.N20_P;
 
 		var n0R = controls.N0_R;
 		var n1R = controls.N1_R;
@@ -3085,6 +3130,15 @@ class PlayState extends MusicBeatState
 		var n9R = controls.N9_R;
 		var n10R = controls.N10_R;
 		var n11R = controls.N11_R;
+		var n12R = controls.N12_R;
+		var n13R = controls.N13_R;
+		var n14R = controls.N14_R;
+		var n15R = controls.N15_R;
+		var n16R = controls.N16_R;
+		var n17R = controls.N17_R;
+		var n18R = controls.N18_R;
+		var n19R = controls.N19_R;
+		var n20R = controls.N20_R;
 
 		var ex1 = false;
 
@@ -3155,8 +3209,8 @@ class PlayState extends MusicBeatState
 		}
 		else if (mania == 2)
 		{
-			ankey = (n0P || n1P || n2P || n3P || n4P || n5P || n6P || n7P || n8P || n9P || n10P || n11P);
-			controlArray = [n0P, n1P, n2P, n3P, n4P, n5P, n6P, n7P, n8P, n9P, n10P, n11P];
+			ankey = (n0P || n1P || n2P || n3P || n4P || n5P || n6P || n7P || n8P || n9P || n10P || n11P || n12P || n13P || n14P || n15P || n16P || n17P || n18P || n19P || n20P);
+			controlArray = [n0P, n1P, n2P, n3P, n4P, n5P, n6P, n7P, n8P, n9P, n10P, n11P, n12P, n13P, n14P, n15P, n16P, n17P, n18P, n19P, n20P];
 		}
 		if (ankey && !boyfriend.stunned && generatedMusic)
 			{
@@ -3297,7 +3351,7 @@ class PlayState extends MusicBeatState
 			}
 			else if (mania == 2)
 			{
-				condition = ((n0 || n1 || n2 || n3 || n4 || n5 || n6 || n7 || n8 || n9 || n10 || n11) && generatedMusic || (n0Hold || n1Hold || n2Hold || n3Hold || n4Hold || n5Hold || n6Hold || n7Hold || n8Hold || n9Hold || n10Hold || n11Hold) && loadRep && generatedMusic);
+				condition = ((n0 || n1 || n2 || n3 || n4 || n5 || n6 || n7 || n8 || n9 || n10 || n11 || n12 || n13 || n14 || n15 || n16 || n17 || n18 || n19 || n20) && generatedMusic || (n0Hold || n1Hold || n2Hold || n3Hold || n4Hold || n5Hold || n6Hold || n7Hold || n8Hold || n9Hold || n10Hold || n11Hold || n12Hold || n13Hold || n14Hold || n15Hold || n16Hold || n17Hold || n18Hold || n19Hold || n20Hold) && loadRep && generatedMusic);
 			}
 			if (condition)
 			{
@@ -3366,6 +3420,15 @@ class PlayState extends MusicBeatState
 								case 9: if (n9 || n9Hold) goodNoteHit(daNote);
 								case 10: if (n10 || n10Hold) goodNoteHit(daNote);
 								case 11: if (n11 || n11Hold) goodNoteHit(daNote);
+								case 12: if (n12 || n12Hold) goodNoteHit(daNote);
+								case 13: if (n13 || n13Hold) goodNoteHit(daNote);
+								case 14: if (n14 || n14Hold) goodNoteHit(daNote);
+								case 15: if (n15 || n15Hold) goodNoteHit(daNote);
+								case 16: if (n16 || n16Hold) goodNoteHit(daNote);
+								case 17: if (n17 || n17Hold) goodNoteHit(daNote);
+								case 18: if (n18 || n18Hold) goodNoteHit(daNote);
+								case 19: if (n19 || n19Hold) goodNoteHit(daNote);
+								case 20: if (n20 || n20Hold) goodNoteHit(daNote);
 							}
 						}
 					}
@@ -3480,58 +3543,89 @@ class PlayState extends MusicBeatState
 							}
 					}
 				}
-				else if (mania == 2)
-				{
-					switch (spr.ID)
-					{
-						case 0:
-							if (n0P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
-							if (n0R) spr.animation.play('static');
-						case 1:
-							if (n1P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
-							if (n1R) spr.animation.play('static');
-						case 2:
-							if (n2P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
-							if (n2R) spr.animation.play('static');
-						case 3:
-							if (n3P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
-							if (n3R) spr.animation.play('static');
-						case 4:
-							if (n4P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
-							if (n4R) spr.animation.play('static');
-						case 5:
-							if (n5P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
-							if (n5R) spr.animation.play('static');
-						case 6:
-							if (n6P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
-							if (n6R) spr.animation.play('static');
-						case 7:
-							if (n7P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
-							if (n7R) spr.animation.play('static');
-						case 8:
-							if (n8P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
-							if (n8R) spr.animation.play('static');
-						case 9:
-							if (n9P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
-							if (n9R) spr.animation.play('static');
-						case 10:
-							if (n10P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
-							if (n10R) spr.animation.play('static');
-						case 11:
-							if (n11P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
-							if (n11R) spr.animation.play('static');
-					}
-				}
-				
-				if (spr.animation.curAnim.name == 'confirm' && !curStage.startsWith('school'))
-				{
-					spr.centerOffsets();
-					spr.offset.x -= 13;
-					spr.offset.y -= 13;
-				}
-				else
-					spr.centerOffsets();
 			});
+
+			playerStrums.forEach(function(spr:FlxSprite)
+				{
+					if (mania == 2)
+					{
+						switch (spr.ID)
+						{
+							case 0:
+								if (n0P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n0R) spr.animation.play('static');
+							case 1:
+								if (n1P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n1R) spr.animation.play('static');
+							case 2:
+								if (n2P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n2R) spr.animation.play('static');
+							case 3:
+								if (n3P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n3R) spr.animation.play('static');
+							case 4:
+								if (n4P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n4R) spr.animation.play('static');
+							case 5:
+								if (n5P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n5R) spr.animation.play('static');
+							case 6:
+								if (n6P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n6R) spr.animation.play('static');
+							case 7:
+								if (n7P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n7R) spr.animation.play('static');
+							case 8:
+								if (n8P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n8R) spr.animation.play('static');
+							case 9:
+								if (n9P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n9R) spr.animation.play('static');
+							case 10:
+								if (n10P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n10R) spr.animation.play('static');
+							case 11:
+								if (n11P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n11R) spr.animation.play('static');
+							case 12:
+								if (n12P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n12R) spr.animation.play('static');
+							case 13:
+								if (n13P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n13R) spr.animation.play('static');
+							case 14:
+								if (n14P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n14R) spr.animation.play('static');
+							case 15:
+								if (n15P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n15R) spr.animation.play('static');
+							case 16:
+								if (n16P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n16R) spr.animation.play('static');
+							case 17:
+								if (n17P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n17R) spr.animation.play('static');
+							case 18:
+								if (n18P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n18R) spr.animation.play('static');
+							case 19:
+								if (n19P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n19R) spr.animation.play('static');
+							case 20:
+								if (n20P && spr.animation.curAnim.name != 'confirm') spr.animation.play('pressed');
+								if (n20R) spr.animation.play('static');
+						}
+					}
+					
+					if (spr.animation.curAnim.name == 'confirm' && !curStage.startsWith('school'))
+					{
+						spr.centerOffsets();
+						spr.offset.x -= 13;
+						spr.offset.y -= 13;
+					}
+					else
+						spr.centerOffsets();
+				});
 	}
 
 	function noteMiss(direction:Int = 1):Void
@@ -3557,26 +3651,44 @@ class PlayState extends MusicBeatState
 				case 0:
 					boyfriend.playAnim('singLEFTmiss', true);
 				case 1:
-					boyfriend.playAnim('singDOWNmiss', true);
+					boyfriend.playAnim('singLEFTmiss', true);
 				case 2:
-					boyfriend.playAnim('singUPmiss', true);
+					boyfriend.playAnim('singLEFTmiss', true);
 				case 3:
-					boyfriend.playAnim('singRIGHTmiss', true);
+					boyfriend.playAnim('singLEFTmiss', true);
 				case 4:
-					boyfriend.playAnim('singRIGHTmiss', true);
-				case 5:
 					boyfriend.playAnim('singDOWNmiss', true);
-				case 6:
+				case 5:
 					boyfriend.playAnim('singUPmiss', true);
-				case 7:
+				case 6:
 					boyfriend.playAnim('singRIGHTmiss', true);
+				case 7:
+					boyfriend.playAnim('singLEFTmiss', true);
 				case 8:
 					boyfriend.playAnim('singRIGHTmiss', true);
 				case 9:
 					boyfriend.playAnim('singDOWNmiss', true);
 				case 10:
-					boyfriend.playAnim('singUPmiss', true);
+					boyfriend.playAnim('singLEFTmiss', true);
 				case 11:
+					boyfriend.playAnim('singUPmiss', true);
+				case 12:
+					boyfriend.playAnim('singDOWNmiss', true);
+				case 13:
+					boyfriend.playAnim('singRIGHTmiss', true);
+				case 14:
+					boyfriend.playAnim('singRIGHTmiss', true);
+				case 15:
+					boyfriend.playAnim('singDOWNmiss', true);
+				case 16:
+					boyfriend.playAnim('singUPmiss', true);
+				case 17:
+					boyfriend.playAnim('singRIGHTmiss', true);
+				case 18:
+					boyfriend.playAnim('singRIGHTmiss', true);
+				case 19:
+					boyfriend.playAnim('singRIGHTmiss', true);
+				case 20:
 					boyfriend.playAnim('singRIGHTmiss', true);
 			}
 
@@ -3612,6 +3724,15 @@ class PlayState extends MusicBeatState
 			var n9P = controls.N9_P;
 			var n10P = controls.N10_P;
 			var n11P = controls.N11_P;
+			var n12P = controls.N12_P;
+			var n13P = controls.N13_P;
+			var n14P = controls.N14_P;
+			var n15P = controls.N15_P;
+			var n16P = controls.N16_P;
+			var n17P = controls.N17_P;
+			var n18P = controls.N18_P;
+			var n19P = controls.N19_P;
+			var n20P = controls.N20_P;
 			
 			if (mania == 0)
 			{
@@ -3653,6 +3774,15 @@ class PlayState extends MusicBeatState
 				if (n9P) noteMiss(9);
 				if (n10P) noteMiss(10);
 				if (n11P) noteMiss(11);
+				if (n12P) noteMiss(12);
+				if (n13P) noteMiss(13);
+				if (n14P) noteMiss(14);
+				if (n15P) noteMiss(15);
+				if (n16P) noteMiss(16);
+				if (n17P) noteMiss(17);
+				if (n18P) noteMiss(18);
+				if (n19P) noteMiss(19);
+				if (n20P) noteMiss(20);
 			}
 			updateAccuracy();
 		}
@@ -3746,7 +3876,7 @@ class PlayState extends MusicBeatState
 					}
 					else if (mania == 2)
 					{
-						sDir = ['LEFT', 'DOWN', 'UP', 'RIGHT', 'LEFT', 'DOWN', 'UP', 'RIGHT', 'LEFT', 'DOWN', 'UP', 'RIGHT'];
+						sDir = ['LEFT', 'LEFT', 'LEFT', 'LEFT', 'DOWN', 'UP', 'RIGHT', 'LEFT', 'RIGHT', 'DOWN', 'LEFT', 'UP', 'DOWN', 'RIGHT', 'LEFT', 'DOWN', 'UP', 'RIGHT', 'RIGHT', 'RIGHT', 'RIGHT'];
 					}
 
 					boyfriend.playAnim('sing' + sDir[note.noteData], true);
@@ -4485,13 +4615,17 @@ class PlayState extends MusicBeatState
 			case 'gf_sass':
 				dialogue = [
 					"BEP?!",
-					"Will that get you to sing for real\nthis time?"
+					"Will that get you to sing for real\nthis time?",
+					"Theres like, the feeling. I've been here before.",
+					"No matter."
 				];
 				dface = [
 						"f_bf_scared",
-						"f_gf"
+						"f_gf",
+						"f_sh_con",
+						"f_sh_smug"
 						];
-				dside = [-1, -1];
+				dside = [-1, -1, 1, 1];
 			case 'sh_amazing':
 				dialogue = [
 					"...",

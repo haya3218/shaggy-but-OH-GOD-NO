@@ -56,8 +56,8 @@ class Note extends FlxSprite
 		}
 		else if (PlayState.SONG.mania == 2)
 		{
-			swagWidth = 67 * 0.7;
-			noteScale = 0.32;
+			swagWidth = 37 * 0.7;
+			noteScale = 0.26;
 			mania = 2;
 		}
 		super();
@@ -130,6 +130,15 @@ class Note extends FlxSprite
 				animation.addByPrefix('pinkScroll', 'pink0');
 				animation.addByPrefix('orangeScroll', 'orange0');
 				animation.addByPrefix('blurpleScroll', 'blurple0');
+				animation.addByPrefix('lavenderScroll', 'lavender0');
+				animation.addByPrefix('infraScroll', 'infra0');
+				animation.addByPrefix('oldScroll', 'old0');
+				animation.addByPrefix('aquaScroll', 'aqua0');
+				animation.addByPrefix('deepScroll', 'deep0');
+				animation.addByPrefix('mardiScroll', 'mardi0');
+				animation.addByPrefix('grayScroll', 'gray0');
+				animation.addByPrefix('jonquilScroll', 'jonquil0');
+				animation.addByPrefix('shamrockScroll', 'shamrock0');
 
 				animation.addByPrefix('purpleholdend', 'pruple end hold');
 				animation.addByPrefix('greenholdend', 'green hold end');
@@ -143,6 +152,15 @@ class Note extends FlxSprite
 				animation.addByPrefix('pinkholdend', 'pink hold end');
 				animation.addByPrefix('orangeholdend', 'orange hold end');
 				animation.addByPrefix('blurpleholdend', 'blurple hold end');
+				animation.addByPrefix('lavenderholdend', 'lavender hold end');
+				animation.addByPrefix('infraholdend', 'infra hold end');
+				animation.addByPrefix('oldholdend', 'old hold end');
+				animation.addByPrefix('aquaholdend', 'aqua hold end');
+				animation.addByPrefix('deepholdend', 'deep hold end');
+				animation.addByPrefix('mardiholdend', 'mardi hold end');
+				animation.addByPrefix('grayholdend', 'gray hold end');
+				animation.addByPrefix('jonquilholdend', 'jonquil hold end');
+				animation.addByPrefix('shamrockholdend', 'shamrock hold end');
 
 				animation.addByPrefix('purplehold', 'purple hold piece');
 				animation.addByPrefix('greenhold', 'green hold piece');
@@ -156,6 +174,15 @@ class Note extends FlxSprite
 				animation.addByPrefix('pinkhold', 'pink hold piece');
 				animation.addByPrefix('orangehold', 'orange hold piece');
 				animation.addByPrefix('blurplehold', 'blurple hold piece');
+				animation.addByPrefix('lavenderhold', 'lavender hold piece');
+				animation.addByPrefix('infrahold', 'infra hold piece');
+				animation.addByPrefix('oldhold', 'old hold piece');
+				animation.addByPrefix('aquahold', 'aqua hold piece');
+				animation.addByPrefix('deephold', 'deep hold piece');
+				animation.addByPrefix('mardihold', 'mardi hold piece');
+				animation.addByPrefix('grayhold', 'gray hold piece');
+				animation.addByPrefix('jonquilhold', 'jonquil hold piece');
+				animation.addByPrefix('shamrockhold', 'shamrock hold piece');
 
 				setGraphicSize(Std.int(width * noteScale));
 				updateHitbox();
@@ -169,7 +196,7 @@ class Note extends FlxSprite
 		}
 		var frameN:Array<String> = ['purple', 'blue', 'green', 'red'];
 		if (mania == 1) frameN = ['purple', 'green', 'red', 'yellow', 'blue', 'dark'];
-		else if (mania == 2) frameN = ['purple', 'blue', 'green', 'red', 'white', 'pink', 'orange', 'blurple', 'yellow', 'violet', 'black', 'dark'];
+		else if (mania == 2) frameN = ['mardi', 'deep', 'aqua', 'purple', 'blue', 'green', 'red', 'white', 'old', 'pink', 'lavender', 'orange', 'infra', 'blurple', 'yellow', 'violet', 'black', 'dark', 'gray', 'jonquil', 'shamrock'];
 
 		x += swagWidth * noteData;
 		animation.play(frameN[noteData] + 'Scroll');
