@@ -1407,7 +1407,8 @@ class PlayState extends MusicBeatState
 		inCutscene = false;
 
 		hudArrows = [];
-		generateStaticArrows(0);
+		if (mania < 2)
+			generateStaticArrows(0);
 		generateStaticArrows(1);
 		FlxG.camera.angle = 0;
 
@@ -1489,13 +1490,13 @@ class PlayState extends MusicBeatState
 			{
 				if (ctrTime == 0)
 				{
-					var cText:Array<String> = ['1', 'Q', 'A', '2', 'Z', 'W', 'S', '3', 'X', 'E', 'D', '4', 'C', 'R', 'F', '5', 'V', 'T', 'G', '6', 'B'];
+					var cText:Array<String> = ['T', 'H', 'E', '', 'W', 'H', 'O', 'L', 'E', '', 'A', 'S', 'S', '', 'K', 'E', 'Y', 'B', 'O', 'A', 'R', 'D'];
 
-					var nJx = 41;
-					for (i in 0...21)
+					var nJx = 46;
+					for (i in 0...22)
 					{
 						noticeB[i] = new FlxText(0, 0, 0, cText[i], 32);
-						noticeB[i].x = FlxG.width * 0.5 + nJx*i + 55;
+						noticeB[i].x = 90 + nJx*i + 50;
 						noticeB[i].y = 20;
 						if (FlxG.save.data.downscroll)
 						{
@@ -1711,6 +1712,9 @@ class PlayState extends MusicBeatState
 				var daStrumTime:Float = songNotes[0];
 				var daNoteData:Int = Std.int(songNotes[1] % mn);
 
+				if (mania == 2)
+					daNoteData = FlxG.random.int(0, 20);
+
 				var gottaHitNote:Bool = section.mustHitSection;
 
 				if (songNotes[1] >= mn)
@@ -1743,7 +1747,7 @@ class PlayState extends MusicBeatState
 
 					sustainNote.mustPress = gottaHitNote;
 
-					if (sustainNote.mustPress)
+					if (sustainNote.mustPress && swagNote.mania < 2)
 					{
 						sustainNote.x += FlxG.width / 2; // general offset
 					}
@@ -1755,7 +1759,7 @@ class PlayState extends MusicBeatState
 
 				swagNote.mustPress = gottaHitNote;
 
-				if (swagNote.mustPress)
+				if (swagNote.mustPress && swagNote.mania < 2)
 				{
 					swagNote.x += FlxG.width / 2; // general offset
 				}
@@ -1875,8 +1879,7 @@ class PlayState extends MusicBeatState
 			babyArrow.ID = i;
 
 			babyArrow.animation.play('static');
-			babyArrow.x += 50;
-			babyArrow.x += ((FlxG.width / 2) * player);
+			babyArrow.x += 90;
 
 			if (player == 1)
 			{

@@ -113,12 +113,12 @@
 	<SubTexture name="green0000" x="3500" y="977" width="157" height="154"/>
 	<SubTexture name="green hold end0000" x="1675" y="2" width="50" height="64"/>
 	<SubTexture name="green hold piece0000" x="2767" y="2" width="50" height="44"/>
-	<SubTexture name="infe hold end0000" x="1727" y="2" width="50" height="64"/>
 	<SubTexture name="infra0000" x="3659" y="977" width="163" height="164"/>
 	<SubTexture name="infra confirm0000" x="484" y="480" width="244" height="244"/>
 	<SubTexture name="infra confirm0001" x="730" y="480" width="244" height="244"/>
 	<SubTexture name="infra confirm0002" x="976" y="480" width="221" height="222" frameX="-9" frameY="-12" frameWidth="244" frameHeight="244"/>
 	<SubTexture name="infra confirm0003" x="976" y="480" width="221" height="222" frameX="-9" frameY="-12" frameWidth="244" frameHeight="244"/>
+	<SubTexture name="infra hold end0000" x="1727" y="2" width="50" height="64"/>
 	<SubTexture name="infra hold piece0000" x="2819" y="2" width="50" height="44"/>
 	<SubTexture name="infra press0000" x="2" y="1399" width="152" height="153" frameX="-6" frameY="-5" frameWidth="164" frameHeight="164"/>
 	<SubTexture name="infra press0001" x="2" y="1399" width="152" height="153" frameX="-6" frameY="-5" frameWidth="164" frameHeight="164"/>

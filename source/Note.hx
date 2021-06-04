@@ -56,8 +56,8 @@ class Note extends FlxSprite
 		}
 		else if (PlayState.SONG.mania == 2)
 		{
-			swagWidth = 37 * 0.7;
-			noteScale = 0.26;
+			swagWidth = 75 * 0.7;
+			noteScale = 0.43;
 			mania = 2;
 		}
 		super();
@@ -68,7 +68,7 @@ class Note extends FlxSprite
 		this.prevNote = prevNote;
 		isSustainNote = sustainNote;
 
-		x += 50;
+		x += 90;
 		if (PlayState.SONG.mania == 2)
 		{
 			x -= tooMuch;
