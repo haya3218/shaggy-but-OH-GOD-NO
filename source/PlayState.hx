@@ -2425,6 +2425,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+		/*
 		if (health <= 0)
 		{
 			boyfriend.stunned = true;
@@ -2440,6 +2441,7 @@ class PlayState extends MusicBeatState
 
 			// FlxG.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		}
+		*/
 
 		if (unspawnNotes[0] != null)
 		{
