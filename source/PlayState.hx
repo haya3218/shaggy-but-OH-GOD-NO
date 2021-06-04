@@ -1533,7 +1533,7 @@ class PlayState extends MusicBeatState
 				}
 				else
 				{
-					for (i in 0...21)
+					for (i in 0...22)
 					{
 						if (ctrTime < 600)
 						{
@@ -1548,7 +1548,7 @@ class PlayState extends MusicBeatState
 						}
 					}
 				}
-				for (i in 0...21)
+				for (i in 0...22)
 				{
 					nShadowB[i].alpha = noticeB[i].alpha;
 				}
@@ -2593,7 +2593,7 @@ class PlayState extends MusicBeatState
 						else
 						{
 							health -= 0.075;
-							vocals.volume = 0;
+							//vocals.volume = 0;
 							if (theFunne)
 								noteMiss(daNote.noteData);
 						}
@@ -2626,7 +2626,7 @@ class PlayState extends MusicBeatState
 
 		canPause = false;
 		FlxG.sound.music.volume = 0;
-		vocals.volume = 0;
+		//vocals.volume = 0;
 		if (SONG.validScore)
 		{
 			#if !switch
