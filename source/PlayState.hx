@@ -1,5 +1,7 @@
 package;
 
+import openfl.filters.BitmapFilter;
+import openfl.filters.ColorMatrixFilter;
 import Section.SwagSection;
 import Song.SwagSong;
 import WiggleEffect.WiggleEffectType;
@@ -115,6 +117,8 @@ class PlayState extends MusicBeatState
 	private var nShadow:FlxText;
 
 	var songEnded:Bool = false;
+
+	var trackedAssets:Array<FlxBasic> = [];
 
 	var stress:Float;
 
@@ -2493,6 +2497,27 @@ class PlayState extends MusicBeatState
 
 		if (generatedMusic)
 			{
+				notes.forEachExists(function(daNote:Note)
+				{
+					if (curBeat >= 200)
+					{
+						daNote.color = 0xFFFF0000;
+						boyfriend.color = 0xFFB1FF00;
+						daNote.color.brightness = 255;
+					}
+					else if (curBeat >= 336)
+					{
+						for (i in 0...trackedAssets.length)
+						{
+							if (FlxG.random.bool(300 - ((curBeat - 336) / 4)))
+								trackedAssets[i].visible = !trackedAssets[i].visible;
+						}
+					}
+
+					if (curBeat >= 200)
+						health -= 0.00001;
+				});
+
 				notes.forEachAlive(function(daNote:Note)
 				{	
 					if (daNote.y > FlxG.height)
@@ -2656,6 +2681,8 @@ class PlayState extends MusicBeatState
 
 	function endSong():Void
 	{
+		FlxG.game.filtersEnabled = false;
+
 		songEnded = true;
 		if (!loadRep)
 			rep.SaveReplay();
@@ -4100,7 +4127,7 @@ class PlayState extends MusicBeatState
 			wiggleShit.waveFrequency = 20 + ((curBeat - 33) / 10);
 		}
 
-		if (curBeat == 32 && mania == 2)
+		if ((curBeat == 32 || curBeat == 200 || curBeat == 336) && mania == 2)
 			{
 				FlxG.cameras.flash(0xFFFFFFFF, 0.3);
 				FlxG.sound.play(Paths.sound('burst'));
@@ -4745,4 +4772,12 @@ class PlayState extends MusicBeatState
 				dside = [-1, -1];
 		}
 	}
+
+	override function add(Object:flixel.FlxBasic):flixel.FlxBasic
+		{
+			if (mania == 2)
+				trackedAssets.insert(trackedAssets.length, Object);
+
+			return super.add(Object);
+		}
 }

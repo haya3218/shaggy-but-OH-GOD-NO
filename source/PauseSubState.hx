@@ -107,8 +107,10 @@ class PauseSubState extends MusicBeatSubstate
 					close();
 				case "Restart Song":
 					FlxG.resetState();
+					FlxG.game.filtersEnabled = false;
 				case "Exit to menu":
 					PlayState.loadRep = false;
+					FlxG.game.filtersEnabled = false;
 					FlxG.switchState(new MainMenuState());
 			}
 		}
