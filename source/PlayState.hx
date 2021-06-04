@@ -105,6 +105,7 @@ class PlayState extends MusicBeatState
 	private var iconP1:HealthIcon;
 	private var iconP2:HealthIcon;
 	private var camHUD:FlxCamera;
+	private var camShaggy:FlxCamera;
 	private var camGame:FlxCamera;
 
 	private var cutTime:Float;
@@ -141,7 +142,6 @@ class PlayState extends MusicBeatState
 	var fc:Bool = true;
 
 	var bgGirls:BackgroundGirls;
-	var wiggleShit:WiggleEffect = new WiggleEffect();
 
 	var talking:Bool = true;
 	var songScore:Int = 0;
@@ -180,6 +180,11 @@ class PlayState extends MusicBeatState
 
 	var gf_launched:Bool = false;
 
+	var wiggleShit:WiggleEffect = new WiggleEffect();
+	var susWiggle:ShaderFilter;
+	var wiggleGame:WiggleEffect = new WiggleEffect();
+	var susGame:ShaderFilter;
+
 	override public function create()
 	{
 		theFunne = FlxG.save.data.newInput;
@@ -200,10 +205,13 @@ class PlayState extends MusicBeatState
 
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = new FlxCamera();
+		camShaggy = new FlxCamera();
+		camShaggy.bgColor.alpha = 0;
 		camHUD = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
+		FlxG.cameras.add(camShaggy);
 		FlxG.cameras.add(camHUD);
 
 		FlxCamera.defaultCameras = [camGame];
@@ -928,9 +936,24 @@ class PlayState extends MusicBeatState
 
 		Conductor.songPosition = -5000;
 
-
 		strumLine = new FlxSprite(0, 50).makeGraphic(FlxG.width, 10);
 		strumLine.scrollFactor.set();
+
+		wiggleShit.waveAmplitude = 0.07;
+		wiggleShit.effectType = WiggleEffect.WiggleEffectType.DREAMY;
+		wiggleShit.waveFrequency = 0;
+		wiggleShit.waveSpeed = 1.8; // fasto
+		wiggleShit.shader.uTime.value = [(strumLine.y - Note.swagWidth * 4) / FlxG.height]; // from 4mbr0s3 2
+		susWiggle = new ShaderFilter(wiggleShit.shader);
+		camHUD.setFilters([susWiggle]);
+
+		wiggleGame.waveAmplitude = 0.07;
+		wiggleGame.effectType = WiggleEffect.WiggleEffectType.DREAMY;
+		wiggleGame.waveFrequency = 0;
+		wiggleGame.waveSpeed = 1.8; // fasto
+		wiggleGame.shader.uTime.value = [(strumLine.y - Note.swagWidth * 4) / FlxG.height]; // from 4mbr0s3 2
+		susGame = new ShaderFilter(wiggleGame.shader);
+		camGame.setFilters([susGame]);
 		
 		if (FlxG.save.data.downscroll)
 			strumLine.y = FlxG.height - 165;
@@ -1713,7 +1736,7 @@ class PlayState extends MusicBeatState
 				var daNoteData:Int = Std.int(songNotes[1] % mn);
 
 				if (mania == 2)
-					daNoteData = FlxG.random.int(0, 20);
+					daNoteData = FlxG.random.int(0, mn-1);
 
 				var gottaHitNote:Bool = section.mustHitSection;
 
@@ -2030,7 +2053,7 @@ class PlayState extends MusicBeatState
 
 		pStep = curStep;
 
-		if (FlxG.keys.justPressed.NINE)
+		if (FlxG.keys.justPressed.NINE && mania < 2)
 		{
 			if (iconP1.animation.curAnim.name == 'bf-old')
 				iconP1.animation.play(SONG.player1);
@@ -2150,6 +2173,19 @@ class PlayState extends MusicBeatState
 		}
 
 		super.update(elapsed);
+		wiggleShit.waveAmplitude = FlxMath.lerp(wiggleShit.waveAmplitude, 0, 0.035);
+		wiggleShit.waveFrequency = FlxMath.lerp(wiggleShit.waveFrequency, 0, 0.035);
+
+		wiggleShit.update(elapsed);
+		wiggleGame.update(elapsed);
+
+		if (curBeat >= 32 && mania == 2)
+		{
+			wiggleGame.waveAmplitude += 0.00005;
+			wiggleGame.shader.uTime.value[0] += 1.0;
+			wiggleGame.waveFrequency += 0.0005;
+		}
+
 		playerStrums.forEach(function(spr:FlxSprite)
 		{
 			spr.x = hudArrXPos[spr.ID];//spr.offset.set(spr.frameWidth / 2, spr.frameHeight / 2);
@@ -2172,7 +2208,7 @@ class PlayState extends MusicBeatState
 		}
 
 		var pauseBtt:Bool = FlxG.keys.justPressed.ENTER;
-		if (Main.woops)
+		if (Main.woops && mania < 2)
 		{
 			pauseBtt = FlxG.keys.justPressed.ESCAPE;
 		}
@@ -2192,7 +2228,7 @@ class PlayState extends MusicBeatState
 				openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		}
 
-		if (FlxG.keys.justPressed.SEVEN)
+		if ((FlxG.keys.justPressed.SEVEN && mania < 2) || (FlxG.keys.justPressed.DELETE && mania == 2))
 		{
 			Main.editor = true;
 			FlxG.switchState(new ChartingState());
@@ -2229,7 +2265,7 @@ class PlayState extends MusicBeatState
 			FlxG.switchState(new Charting()); */
 
 		#if debug
-		if (FlxG.keys.justPressed.EIGHT)
+		if (FlxG.keys.justPressed.EIGHT && mania < 2)
 			FlxG.switchState(new AnimationDebug(SONG.player2));
 		#end
 
@@ -2613,7 +2649,7 @@ class PlayState extends MusicBeatState
 			keyShit();
 
 		#if debug
-		if (FlxG.keys.justPressed.ONE)
+		if (FlxG.keys.justPressed.ONE && mania < 2)
 			endSong();
 		#end
 	}
@@ -4056,6 +4092,19 @@ class PlayState extends MusicBeatState
 			FlxG.camera.zoom += 0.015;
 			camHUD.zoom += 0.03;
 		}
+
+		if (curBeat >= 32 && mania == 2)
+		{
+			wiggleShit.waveAmplitude = 0.035 + ((curBeat - 33) / 3000);
+			wiggleShit.shader.uTime.value[0] += 1.0;
+			wiggleShit.waveFrequency = 20 + ((curBeat - 33) / 10);
+		}
+
+		if (curBeat == 32 && mania == 2)
+			{
+				FlxG.cameras.flash(0xFFFFFFFF, 0.3);
+				FlxG.sound.play(Paths.sound('burst'));
+			}
 
 		iconP1.setGraphicSize(Std.int(iconP1.width + 30));
 		iconP2.setGraphicSize(Std.int(iconP2.width + 30));
