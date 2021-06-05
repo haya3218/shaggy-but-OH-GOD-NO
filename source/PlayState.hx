@@ -127,7 +127,7 @@ class PlayState extends MusicBeatState
 	var trackedAssets:Array<FlxBasic> = [];
 
 	var multiplier:Int = 5000000;
-	var minScale:Float = 0.43;
+	var minScale:Float = 0.5;
 
 	var stress:Float;
 
@@ -2520,8 +2520,8 @@ class PlayState extends MusicBeatState
 			{
 				notes.forEachExists(function(daNote:Note)
 				{
-					daNote.scale.x = FlxG.random.float(minScale + (curBeat/multiplier), 0.43 + (curBeat/multiplier));
-					daNote.scale.y = FlxG.random.float(minScale +(curBeat/multiplier), 0.43 + (curBeat/multiplier));
+					daNote.scale.x = FlxG.random.float(minScale + (curBeat/multiplier), 0.5 + (curBeat/multiplier));
+					daNote.scale.y = FlxG.random.float(minScale +(curBeat/multiplier), 0.5 + (curBeat/multiplier));
 
 					if (curBeat >= 32)
 						{
@@ -2610,8 +2610,8 @@ class PlayState extends MusicBeatState
 					{
 						Application.current.window.x += FlxG.random.int(-1 - Math.round(-1 - (463-curBeat)), 1 + Math.round(-1 - (463-curBeat)));
 						Application.current.window.y += FlxG.random.int(-1 - Math.round(-1 - (463-curBeat)), 1 + Math.round(-1 - (463-curBeat)));
-						Application.current.window.height += FlxG.random.int(-1 - Math.round(-1 - (463-curBeat)*5), 1 + Math.round(-1 - (463-curBeat)*5));
-						Application.current.window.width += FlxG.random.int(-1 - Math.round(-1 - (463-curBeat)*5), 1 + Math.round(-1 - (463-curBeat)*5));
+						Application.current.window.height += FlxG.random.int(-1 - Math.round(-1 - (463-curBeat)*3), 1 + Math.round(-1 - (463-curBeat)*3));
+						Application.current.window.width += FlxG.random.int(-1 - Math.round(-1 - (463-curBeat)*3), 1 + Math.round(-1 - (463-curBeat)*3));
 					}
 
 					if (curBeat >= 200)

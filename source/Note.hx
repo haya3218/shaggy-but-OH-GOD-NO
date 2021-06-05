@@ -43,6 +43,8 @@ class Note extends FlxSprite
 
 	public static var tooMuch:Float = 19;
 
+	public static var frameN:Array<String> = ['purple', 'blue', 'green', 'red'];
+
 	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false)
 	{
 		swagWidth = 160 * 0.7; //factor not the same as noteScale
@@ -194,7 +196,6 @@ class Note extends FlxSprite
 			case 0:
 			//nada
 		}
-		var frameN:Array<String> = ['purple', 'blue', 'green', 'red'];
 		if (mania == 1) frameN = ['purple', 'green', 'red', 'yellow', 'blue', 'dark'];
 		else if (mania == 2) frameN = ['mardi', 'deep', 'aqua', 'purple', 'blue', 'green', 'red', 'white', 'old', 'pink', 'lavender', 'orange', 'infra', 'blurple', 'yellow', 'violet', 'black', 'dark', 'gray', 'jonquil', 'shamrock'];
 
