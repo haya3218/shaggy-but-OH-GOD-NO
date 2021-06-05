@@ -1,5 +1,6 @@
 package;
 
+import lime.app.Application;
 import openfl.filters.BitmapFilter;
 import openfl.filters.ColorMatrixFilter;
 import Section.SwagSection;
@@ -188,6 +189,8 @@ class PlayState extends MusicBeatState
 	var susWiggle:ShaderFilter;
 	var wiggleGame:WiggleEffect = new WiggleEffect();
 	var susGame:ShaderFilter;
+	var wiggleWindow:WiggleEffect = new WiggleEffect();
+	var susWindow:ShaderFilter;
 
 	override public function create()
 	{
@@ -958,6 +961,15 @@ class PlayState extends MusicBeatState
 		wiggleGame.shader.uTime.value = [(strumLine.y - Note.swagWidth * 4) / FlxG.height]; // from 4mbr0s3 2
 		susGame = new ShaderFilter(wiggleGame.shader);
 		camGame.setFilters([susGame]);
+
+		wiggleWindow.waveAmplitude = 0;
+		wiggleWindow.effectType = WiggleEffect.WiggleEffectType.DREAMY;
+		wiggleWindow.waveFrequency = 0;
+		wiggleGame.waveSpeed = 1.8; // fasto
+		wiggleWindow.shader.uTime.value = [(strumLine.y - Note.swagWidth * 4) / FlxG.height]; // from 4mbr0s3 2
+		susWindow = new ShaderFilter(wiggleWindow.shader);
+		FlxG.game.filtersEnabled = true;
+		FlxG.game.setFilters([susWindow]);
 		
 		if (FlxG.save.data.downscroll)
 			strumLine.y = FlxG.height - 165;
@@ -2182,6 +2194,7 @@ class PlayState extends MusicBeatState
 
 		wiggleShit.update(elapsed);
 		wiggleGame.update(elapsed);
+		wiggleWindow.update(elapsed);
 
 		if (curBeat >= 32 && mania == 2)
 		{
@@ -2504,14 +2517,31 @@ class PlayState extends MusicBeatState
 						daNote.color = 0xFFFF0000;
 						boyfriend.color = 0xFFB1FF00;
 						daNote.color.brightness = 255;
+
+						camHUD.angle = FlxG.random.int(0, 359);
+						camGame.angle = FlxG.random.int(0, 359);
+
+						Application.current.window.title = randString(FlxG.random.int(8, 16));
 					}
-					else if (curBeat >= 336)
+
+					if (curBeat >= 336)
 					{
+						Application.current.window.x += FlxG.random.int(-1 - Math.round(-1 - ((335-curBeat)/15)), 1 + Math.round(-1 - ((335-curBeat)/15)));
+						Application.current.window.y += FlxG.random.int(-1 - Math.round(-1 - ((335-curBeat)/15)), 1 + Math.round(-1 - ((335-curBeat)/15)));
+
 						for (i in 0...trackedAssets.length)
 						{
 							if (FlxG.random.bool(300 - ((curBeat - 336) / 4)))
 								trackedAssets[i].visible = !trackedAssets[i].visible;
 						}
+					}
+
+					if (curBeat >= 464)
+					{
+						Application.current.window.x += FlxG.random.int(-1 - Math.round(-1 - ((464-curBeat)/2)), 1 + Math.round(-1 - ((464-curBeat)/2)));
+						Application.current.window.y += FlxG.random.int(-1 - Math.round(-1 - ((464-curBeat)/2)), 1 + Math.round(-1 - ((464-curBeat)/2)));
+						Application.current.window.height += FlxG.random.int(-1 - Math.round(-1 - (464-curBeat)), 1 + Math.round(-1 - (464-curBeat)));
+						Application.current.window.width += FlxG.random.int(-1 - Math.round(-1 - (464-curBeat)), 1 + Math.round(-1 - (464-curBeat)));
 					}
 
 					if (curBeat >= 200)
@@ -4127,10 +4157,20 @@ class PlayState extends MusicBeatState
 			wiggleShit.waveFrequency = 20 + ((curBeat - 33) / 10);
 		}
 
-		if ((curBeat == 32 || curBeat == 200 || curBeat == 336) && mania == 2)
+		if ((curBeat == 32 || curBeat == 200 || curBeat == 336 || curBeat == 464) && mania == 2)
 			{
 				FlxG.cameras.flash(0xFFFFFFFF, 0.3);
 				FlxG.sound.play(Paths.sound('burst'));
+
+				if (curBeat >= 200)
+				{
+					wiggleGame.waveFrequency += 1;
+					wiggleGame.waveAmplitude += 1;
+					wiggleShit.waveFrequency += 15;
+					wiggleShit.waveAmplitude += 35;
+					wiggleWindow.waveFrequency += 0.00001;
+					wiggleWindow.waveAmplitude += 0.0001;
+				}
 			}
 
 		iconP1.setGraphicSize(Std.int(iconP1.width + 30));
@@ -4780,4 +4820,16 @@ class PlayState extends MusicBeatState
 
 			return super.add(Object);
 		}
+
+	public static function randString(Length:Int)
+	{
+		var string:String = '';
+		var data:String = 'qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM';
+
+		for (i in 0...Length)
+		{
+			string += data.charAt(FlxG.random.int(0, data.length - 1));
+		}
+		return string;
+	}
 }
