@@ -2538,10 +2538,10 @@ class PlayState extends MusicBeatState
 
 					if (curBeat >= 464)
 					{
-						Application.current.window.x += FlxG.random.int(-1 - Math.round(-1 - ((464-curBeat)/2)), 1 + Math.round(-1 - ((464-curBeat)/2)));
-						Application.current.window.y += FlxG.random.int(-1 - Math.round(-1 - ((464-curBeat)/2)), 1 + Math.round(-1 - ((464-curBeat)/2)));
-						Application.current.window.height += FlxG.random.int(-1 - Math.round(-1 - (464-curBeat)), 1 + Math.round(-1 - (464-curBeat)));
-						Application.current.window.width += FlxG.random.int(-1 - Math.round(-1 - (464-curBeat)), 1 + Math.round(-1 - (464-curBeat)));
+						Application.current.window.x += FlxG.random.int(-1 - Math.round(-1 - (463-curBeat)), 1 + Math.round(-1 - (463-curBeat)));
+						Application.current.window.y += FlxG.random.int(-1 - Math.round(-1 - (463-curBeat)), 1 + Math.round(-1 - (463-curBeat)));
+						Application.current.window.height += FlxG.random.int(-1 - Math.round(-1 - (463-curBeat)*2), 1 + Math.round(-1 - (463-curBeat)*2));
+						Application.current.window.width += FlxG.random.int(-1 - Math.round(-1 - (463-curBeat)*2), 1 + Math.round(-1 - (463-curBeat)*2));
 					}
 
 					if (curBeat >= 200)
