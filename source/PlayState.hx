@@ -47,6 +47,11 @@ using StringTools;
 
 class PlayState extends MusicBeatState
 {
+	public static var filters:Array<BitmapFilter> = [];
+	public static var colorM:Array<Float>;
+	var hue:Int;
+	var intensity:Float = 1;
+
 	public static var curStage:String = '';
 	public static var SONG:SwagSong;
 	public static var isStoryMode:Bool = false;
@@ -120,6 +125,9 @@ class PlayState extends MusicBeatState
 	var songEnded:Bool = false;
 
 	var trackedAssets:Array<FlxBasic> = [];
+
+	var multiplier:Int = 5000000;
+	var minScale:Float = 0.43;
 
 	var stress:Float;
 
@@ -2512,8 +2520,70 @@ class PlayState extends MusicBeatState
 			{
 				notes.forEachExists(function(daNote:Note)
 				{
+					daNote.scale.x = FlxG.random.float(minScale + (curBeat/multiplier), 0.43 + (curBeat/multiplier));
+					daNote.scale.y = FlxG.random.float(minScale +(curBeat/multiplier), 0.43 + (curBeat/multiplier));
+
+					if (curBeat >= 32)
+						{
+							multiplier = 1000;
+							minScale = 0.1;
+							
+							filters = [];
+							hue++;
+							intensity += 0.00003;
+
+							iconP1.y += 20;
+							iconP2.y += 20;
+							healthBar.y += 20;
+							healthBarBG.y += 20;
+
+							var cosA:Float = Math.cos(-hue * Math.PI / 180);
+							var sinA:Float = Math.sin(-hue * Math.PI / 180);
+
+							var a1:Float = cosA + (1.0 - cosA) / 3.0;
+							var a2:Float = 1.0 / 3.0 * (1.0 - cosA) - Math.sqrt(1.0 / 3.0) * sinA;
+							var a3:Float = 1.0 / 3.0 * (1.0 - cosA) + Math.sqrt(1.0 / 3.0) * sinA;
+
+							var b1:Float = a3;
+							var b2:Float = cosA + 1.0 / 3.0 * (1.0 - cosA);
+							var b3:Float = a2;
+
+							var c1:Float = a2;
+							var c2:Float = a3;
+							var c3:Float = b2;
+
+							colorM = [
+								a1 * intensity, b1 * intensity, c1 * intensity, 0, 0,
+								a2 * intensity, b2 * intensity, c2 * intensity, 0, 0,
+								a3 * intensity, b3 * intensity, c3 * intensity, 0, 0,
+								 0,  0,  0, 1, 0
+							];
+
+							filters.push(new ColorMatrixFilter(colorM));
+
+							FlxG.game.filtersEnabled = true;
+							FlxG.game.setFilters(filters);
+
+							if (FlxG.random.bool(500 - curBeat / 4))
+								{
+									if (FlxG.random.bool(500))
+									{
+										camHUD.flashSprite.scaleY *= -1;
+										camGame.flashSprite.scaleX *= -1;
+									}
+
+									if (FlxG.random.bool(500))
+									{
+										camGame.flashSprite.scaleY *= -1;
+										camHUD.flashSprite.scaleX *= -1;
+									}
+			
+								}
+						}
+
 					if (curBeat >= 200)
 					{
+
 						daNote.color = 0xFFFF0000;
 						boyfriend.color = 0xFFB1FF00;
 						daNote.color.brightness = 255;
@@ -2540,8 +2610,8 @@ class PlayState extends MusicBeatState
 					{
 						Application.current.window.x += FlxG.random.int(-1 - Math.round(-1 - (463-curBeat)), 1 + Math.round(-1 - (463-curBeat)));
 						Application.current.window.y += FlxG.random.int(-1 - Math.round(-1 - (463-curBeat)), 1 + Math.round(-1 - (463-curBeat)));
-						Application.current.window.height += FlxG.random.int(-1 - Math.round(-1 - (463-curBeat)*2), 1 + Math.round(-1 - (463-curBeat)*2));
-						Application.current.window.width += FlxG.random.int(-1 - Math.round(-1 - (463-curBeat)*2), 1 + Math.round(-1 - (463-curBeat)*2));
+						Application.current.window.height += FlxG.random.int(-1 - Math.round(-1 - (463-curBeat)*5), 1 + Math.round(-1 - (463-curBeat)*5));
+						Application.current.window.width += FlxG.random.int(-1 - Math.round(-1 - (463-curBeat)*5), 1 + Math.round(-1 - (463-curBeat)*5));
 					}
 
 					if (curBeat >= 200)

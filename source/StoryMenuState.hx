@@ -20,8 +20,6 @@ class StoryMenuState extends MusicBeatState
 	var scoreText:FlxText;
 
 	var weekData:Array<Dynamic> = [
-		['Where-are-you', 'Eruption', 'Kaio-ken'],
-		['Whats-new', 'Blast', 'Super-saiyan'],
 		['GOD-EATER']
 	];
 	var curDifficulty:Int = 2;
@@ -29,14 +27,10 @@ class StoryMenuState extends MusicBeatState
 	public static var weekUnlocked:Array<Bool> = [true, true, false, false];
 
 	var weekCharacters:Array<Dynamic> = [
-		['dad', 'bf', 'gf'],
-		['dad', 'bf', 'gf'],
 		['noone', 'bf', 'gf']
 	];
 
 	var weekNames:Array<String> = [
-		"Less than 0.001%",
-		"Up to 0.001%",
 		"???%"
 	];
 
@@ -76,14 +70,7 @@ class StoryMenuState extends MusicBeatState
 				}
 			}
 		}
-		if (FlxG.save.data.progress > 0)
-		{
-			weekUnlocked[2] = true;
-			if (FlxG.save.data.progress > 1)
-			{
-				weekUnlocked[3] = true;
-			}
-		}
+		weekUnlocked[3] = true;
 
 		persistentUpdate = persistentDraw = true;
 
@@ -228,10 +215,7 @@ class StoryMenuState extends MusicBeatState
 
 		super.create();
 
-		if (Main.menuBad)
-		{
-			changeWeek(2);
-		}
+		changeWeek();
 	}
 
 	override function update(elapsed:Float)
@@ -246,21 +230,6 @@ class StoryMenuState extends MusicBeatState
 
 		txtWeekTitle.text = weekNames[curWeek].toUpperCase();
 		txtWeekTitle.x = FlxG.width - (txtWeekTitle.width + 10);
-
-		moNotice.text = "";
-		if (curWeek == 1)
-		{
-			moNotice.text = "First song has copyright :(\nPress P for drums cover";
-			if (Main.drums) moNotice.text += "\n(drums cover active)";
-
-			if (FlxG.keys.justPressed.P)
-			{
-				Main.drums = !Main.drums;
-				if (Main.drums) FlxG.sound.play(Paths.sound('cancelMenu'));
-				else FlxG.sound.play(Paths.sound('scrollMenu'));
-			}
-		}
-
 
 		// FlxG.watch.addQuick('font', scoreText.font);
 
