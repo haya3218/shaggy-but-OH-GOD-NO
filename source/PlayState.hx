@@ -2768,6 +2768,9 @@ class PlayState extends MusicBeatState
 					wiggleGame.waveFrequency = 0;
 				}
 
+				if (curBeat >= 100)
+					health += 0.05;
+
 				if (curBeat == 100)
 				{
 					wiggleGame.waveAmplitude = 0;
@@ -4534,10 +4537,9 @@ class PlayState extends MusicBeatState
 			wiggleShit.waveFrequency = 20 + ((curBeat - 33) / 10);
 		}
 
-		if (curBeat >= 100 && curBeat % 16 == 0)
+		if (curBeat >= 100 && curBeat % 4 == 0)
 		{
 			// fuck you
-			health += 0.05;
 			doGremlin(10, 1, false);
 			doStopSign(FlxG.random.int(0, 3), false);
 		}
