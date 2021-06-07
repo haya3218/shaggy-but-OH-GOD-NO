@@ -45,7 +45,7 @@ class TitleState extends MusicBeatState
 		#if polymod
 		polymod.Polymod.init({modRoot: "mods", dirs: ['introMod']});
 		#end
-		
+
 		#if sys
 		if (!sys.FileSystem.exists(Sys.getCwd() + "\\assets\\replays"))
 			sys.FileSystem.createDirectory(Sys.getCwd() + "\\assets\\replays");
@@ -77,11 +77,13 @@ class TitleState extends MusicBeatState
 
 		if (FlxG.save.data.offset == null)
 			FlxG.save.data.offset = 70;
-		
+
 		if (FlxG.save.data.accuracyDisplay == null)
 			FlxG.save.data.accuracyDisplay = true;
-			
+
 		FlxG.save.bind('shaggy', 'ninjamuffin99');
+
+		CachedFrames.loadEverything();
 
 		Highscore.load();
 
@@ -91,13 +93,13 @@ class TitleState extends MusicBeatState
 			// WEEK UNLOCK PROGRESSION!!
 			// StoryMenuState.weekUnlocked = FlxG.save.data.weekUnlocked;
 			/*
-			if (StoryMenuState.weekUnlocked.length < 4)
-				StoryMenuState.weekUnlocked.insert(0, true);
+				if (StoryMenuState.weekUnlocked.length < 4)
+					StoryMenuState.weekUnlocked.insert(0, true);
 
-			// QUICK PATCH OOPS!
-			if (!StoryMenuState.weekUnlocked[0])
-				StoryMenuState.weekUnlocked[0] = true;
-			*/
+				// QUICK PATCH OOPS!
+				if (!StoryMenuState.weekUnlocked[0])
+					StoryMenuState.weekUnlocked[0] = true;
+			 */
 		}
 
 		#if FREEPLAY
@@ -300,30 +302,29 @@ class TitleState extends MusicBeatState
 				FlxG.switchState(new MainMenuState());
 				// Get current version of Kade Engine
 				/*
-				var http = new haxe.Http("https://raw.githubusercontent.com/KadeDev/Kade-Engine/master/version.downloadMe");
+					var http = new haxe.Http("https://raw.githubusercontent.com/KadeDev/Kade-Engine/master/version.downloadMe");
 
-				http.onData = function (data:String) {
-				  
-				  	if (!MainMenuState.kadeEngineVer.contains(data.trim()) && !OutdatedSubState.leftState)
-					{
-						trace('outdated lmao! ' + data.trim() + ' != ' + MainMenuState.kadeEngineVer);
-						OutdatedSubState.needVer = data;
-						FlxG.switchState(new OutdatedSubState());
+					http.onData = function (data:String) {
+					  
+					  	if (!MainMenuState.kadeEngineVer.contains(data.trim()) && !OutdatedSubState.leftState)
+						{
+							trace('outdated lmao! ' + data.trim() + ' != ' + MainMenuState.kadeEngineVer);
+							OutdatedSubState.needVer = data;
+							FlxG.switchState(new OutdatedSubState());
+						}
+						else
+						{
+							FlxG.switchState(new MainMenuState());
+						}
 					}
-					else
-					{
-						FlxG.switchState(new MainMenuState());
-					}
-				}
-				
-				http.onError = function (error) {
-				  trace('error: $error');
-				  FlxG.switchState(new MainMenuState()); // fail but we go anyway
-				}
-				
-				http.request();
-				*/
 
+					http.onError = function (error) {
+					  trace('error: $error');
+					  FlxG.switchState(new MainMenuState()); // fail but we go anyway
+					}
+
+					http.request();
+				 */
 			});
 			// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 		}
@@ -367,6 +368,7 @@ class TitleState extends MusicBeatState
 	}
 
 	var role_img:FlxSprite;
+
 	override function beatHit()
 	{
 		super.beatHit();
@@ -383,51 +385,51 @@ class TitleState extends MusicBeatState
 
 		switch (curBeat)
 		{
-            case 1:
-                
-            case 2:
-                createCoolText(['Mod by']);
-            // credTextShit.visible = true;
-            case 3:
-                addMoreText('perez');
-            case 4:
-            	deleteCoolText();
-            case 5:
-                createCoolText(["Using Kade dev engine"]);
-            case 7:
-                addMoreText('Forever');
-                ngSpr.visible = false;
-            // credTextShit.text += '\nNewgrounds';
-            case 8:
-                deleteCoolText();
-                ngSpr.visible = false;
-            // credTextShit.visible = false;
+			case 1:
 
-            // credTextShit.text = 'Shoutouts Tom Fulp';
-            // credTextShit.screenCenter();
-            case 9:
-                createCoolText(['go play']);
-            // credTextShit.visible = true;
-            case 11:
-                addMoreText('funkin fanworks');
-            // credTextShit.text += '\nlmao';
-            case 12:
-                deleteCoolText();
-                addMoreText('Friday');
-            // credTextShit.visible = false;
-            // credTextShit.text = "Friday";
-            // credTextShit.screenCenter();
-            case 13:
-                addMoreText('Night');
-            // credTextShit.visible = true;
-            case 14:
-                addMoreText('Funkin');
-            // credTextShit.text += '\nNight';
-            case 15:
-                addMoreText('Vs. Shaggy'); // credTextShit.text += '\nFunkin';
-            case 16:
-                skipIntro();
-        }
+			case 2:
+				createCoolText(['Mod by']);
+			// credTextShit.visible = true;
+			case 3:
+				addMoreText('perez');
+			case 4:
+				deleteCoolText();
+			case 5:
+				createCoolText(["Using Kade dev engine"]);
+			case 7:
+				addMoreText('Forever');
+				ngSpr.visible = false;
+			// credTextShit.text += '\nNewgrounds';
+			case 8:
+				deleteCoolText();
+				ngSpr.visible = false;
+			// credTextShit.visible = false;
+
+			// credTextShit.text = 'Shoutouts Tom Fulp';
+			// credTextShit.screenCenter();
+			case 9:
+				createCoolText(['go play']);
+			// credTextShit.visible = true;
+			case 11:
+				addMoreText('funkin fanworks');
+			// credTextShit.text += '\nlmao';
+			case 12:
+				deleteCoolText();
+				addMoreText('VS');
+			// credTextShit.visible = false;
+			// credTextShit.text = "Friday";
+			// credTextShit.screenCenter();
+			case 13:
+				addMoreText('SHAGGY');
+			// credTextShit.visible = true;
+			case 14:
+				addMoreText('BUT');
+			// credTextShit.text += '\nNight';
+			case 15:
+				addMoreText('UHHHH'); // credTextShit.text += '\nFunkin';
+			case 16:
+				skipIntro();
+		}
 	}
 
 	var skippedIntro:Bool = false;
