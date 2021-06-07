@@ -1187,9 +1187,9 @@ class PlayState extends MusicBeatState
 				daSign.angle = -90;
 				daSign.y = -300;
 			case 1:
-			/*daSign.animation.addByPrefix('sign','Signature Stop Sign 2',20, false);
+				daSign.animation.addByPrefix('sign', 'Signature Stop Sign 2', 24, false);
 				daSign.x = FlxG.width - 670;
-				daSign.angle = -90; */ // this one just doesn't work???
+				daSign.angle = -90;
 			case 2:
 				daSign.animation.addByPrefix('sign', 'Signature Stop Sign 3', 24, false);
 				daSign.x = FlxG.width - 780;
@@ -4540,8 +4540,9 @@ class PlayState extends MusicBeatState
 		if (curBeat >= 100 && curBeat % 4 == 0)
 		{
 			// fuck you
-			doGremlin(10, 1, false);
+			doGremlin(10, 1, FlxG.random.bool(50));
 			doStopSign(FlxG.random.int(0, 3), false);
+			doStopSign(FlxG.random.int(0, 3), true);
 		}
 
 		if ((curBeat == 32 || curBeat == 200 || curBeat == 336 || curBeat == 464) && mania == 2)
