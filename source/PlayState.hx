@@ -12,6 +12,7 @@ import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.addons.effects.FlxSkewedSprite;
 import flixel.FlxState;
 import flixel.FlxSubState;
 import flixel.addons.display.FlxGridOverlay;
@@ -90,8 +91,8 @@ class PlayState extends MusicBeatState
 
 	private static var prevCamFollow:FlxObject;
 
-	private var strumLineNotes:FlxTypedGroup<FlxSprite>;
-	private var playerStrums:FlxTypedGroup<FlxSprite>;
+	private var strumLineNotes:FlxTypedGroup<FlxSkewedSprite>;
+	private var playerStrums:FlxTypedGroup<FlxSkewedSprite>;
 
 	private var camZooming:Bool = false;
 	private var curSong:String = "";
@@ -202,6 +203,8 @@ class PlayState extends MusicBeatState
 	var susGame:ShaderFilter;
 	var wiggleWindow:WiggleEffect = new WiggleEffect();
 	var susWindow:ShaderFilter;
+
+	public static var autoplay:Bool = false;
 
 	override public function create()
 	{
@@ -954,10 +957,10 @@ class PlayState extends MusicBeatState
 		if (FlxG.save.data.downscroll)
 			strumLine.y = FlxG.height - 165;
 
-		strumLineNotes = new FlxTypedGroup<FlxSprite>();
+		strumLineNotes = new FlxTypedGroup<FlxSkewedSprite>();
 		add(strumLineNotes);
 
-		playerStrums = new FlxTypedGroup<FlxSprite>();
+		playerStrums = new FlxTypedGroup<FlxSkewedSprite>();
 
 		// startCountdown();
 
@@ -1169,48 +1172,96 @@ class PlayState extends MusicBeatState
 
 	function doStopSign(sign:Int = 0, fuck:Bool = false)
 	{
-		trace('sign ' + sign);
-		var daSign:FlxSprite = new FlxSprite(0, 0);
-		// CachedFrames.cachedInstance.get('sign')
-
-		daSign.frames = Paths.getSparrowAtlas('fourth/mech/Sign_Post_Mechanic', 'shared');
-
-		// daSign.setGraphicSize(Std.int(daSign.width * 0.67));
-
-		daSign.cameras = [camHUD];
-
-		switch (sign)
+		if (!fuck)
 		{
-			case 0:
-				daSign.animation.addByPrefix('sign', 'Signature Stop Sign 1', 24, false);
-				daSign.x = FlxG.width - 650;
-				daSign.angle = -90;
-				daSign.y = -300;
-			case 1:
-				daSign.animation.addByPrefix('sign', 'Signature Stop Sign 2', 24, false);
-				daSign.x = FlxG.width - 670;
-				daSign.angle = -90;
-			case 2:
-				daSign.animation.addByPrefix('sign', 'Signature Stop Sign 3', 24, false);
-				daSign.x = FlxG.width - 780;
-				daSign.angle = -90;
-				if (FlxG.save.data.downscroll)
-					daSign.y = -395;
-				else
-					daSign.y = -980;
-			case 3:
-				daSign.animation.addByPrefix('sign', 'Signature Stop Sign 4', 24, false);
-				daSign.x = FlxG.width - 1070;
-				daSign.angle = -90;
-				daSign.y = -145;
+			trace('sign ' + sign);
+			var daSign:FlxSprite = new FlxSprite(0, 0);
+			// CachedFrames.cachedInstance.get('sign')
+
+			daSign.frames = Paths.getSparrowAtlas('fourth/mech/Sign_Post_Mechanic', 'shared');
+
+			// daSign.setGraphicSize(Std.int(daSign.width * 0.67));
+
+			daSign.cameras = [camHUD];
+
+			switch (sign)
+			{
+				case 0:
+					daSign.animation.addByPrefix('sign', 'Signature Stop Sign 1', 24, false);
+					daSign.x = FlxG.width - 650;
+					daSign.angle = -90;
+					daSign.y = -300;
+				case 1:
+					daSign.animation.addByPrefix('sign', 'Signature Stop Sign 2', 24, false);
+					daSign.x = FlxG.width - 670;
+					daSign.angle = -90;
+				case 2:
+					daSign.animation.addByPrefix('sign', 'Signature Stop Sign 3', 24, false);
+					daSign.x = FlxG.width - 780;
+					daSign.angle = -90;
+					if (FlxG.save.data.downscroll)
+						daSign.y = -395;
+					else
+						daSign.y = -980;
+				case 3:
+					daSign.animation.addByPrefix('sign', 'Signature Stop Sign 4', 24, false);
+					daSign.x = FlxG.width - 1070;
+					daSign.angle = -90;
+					daSign.y = -145;
+			}
+			add(daSign);
+			daSign.animation.play('sign');
+			daSign.animation.finishCallback = function(pog:String)
+			{
+				trace('ended sign');
+				remove(daSign);
+			}
 		}
-		add(daSign);
-		daSign.flipX = fuck;
-		daSign.animation.play('sign');
-		daSign.animation.finishCallback = function(pog:String)
+		else
 		{
-			trace('ended sign');
-			remove(daSign);
+			trace('sign ' + sign);
+			var daSign:FlxSprite = new FlxSprite(0, 0);
+			// CachedFrames.cachedInstance.get('sign')
+
+			daSign.frames = Paths.getSparrowAtlas('fourth/mech/Sign_Post_Mechanic', 'shared');
+
+			// daSign.setGraphicSize(Std.int(daSign.width * 0.67));
+
+			daSign.cameras = [camHUD];
+
+			switch (sign)
+			{
+				case 0:
+					daSign.animation.addByPrefix('sign', 'Signature Stop Sign 1', 24, false);
+					daSign.x = FlxG.width + 650;
+					daSign.angle = -90;
+					daSign.y = -300;
+				case 1:
+					daSign.animation.addByPrefix('sign', 'Signature Stop Sign 2', 24, false);
+					daSign.x = FlxG.width + 670;
+					daSign.angle = -90;
+				case 2:
+					daSign.animation.addByPrefix('sign', 'Signature Stop Sign 3', 24, false);
+					daSign.x = FlxG.width + 780;
+					daSign.angle = -90;
+					if (FlxG.save.data.downscroll)
+						daSign.y = -395;
+					else
+						daSign.y = -980;
+				case 3:
+					daSign.animation.addByPrefix('sign', 'Signature Stop Sign 4', 24, false);
+					daSign.x = FlxG.width + 1070;
+					daSign.angle = -90;
+					daSign.y = -145;
+			}
+			add(daSign);
+			daSign.animation.play('sign');
+			daSign.scale.set(-1, 1);
+			daSign.animation.finishCallback = function(pog:String)
+			{
+				trace('ended sign');
+				remove(daSign);
+			}
 		}
 	}
 
@@ -1990,7 +2041,7 @@ class PlayState extends MusicBeatState
 		{
 			// FlxG.log.add(i);
 
-			var babyArrow:FlxSprite = new FlxSprite(0, strumLine.y);
+			var babyArrow:FlxSkewedSprite = new FlxSkewedSprite(0, strumLine.y);
 			hudArrows.push(babyArrow);
 
 			switch (curStage)
@@ -2061,7 +2112,7 @@ class PlayState extends MusicBeatState
 					babyArrow.x += Note.swagWidth * i;
 					babyArrow.animation.addByPrefix('static', 'arrow' + nSuf[i]);
 					babyArrow.animation.addByPrefix('pressed', pPre[i] + ' press', 24, false);
-					babyArrow.animation.addByPrefix('confirm', pPre[i] + ' confirm', 24, false);
+					babyArrow.animation.addByIndices('confirm', pPre[i] + ' confirm', [0, 1, 2, 3, 3, 3, 3, 3, 3], '', 24, false);
 			}
 
 			babyArrow.updateHitbox();
@@ -2238,6 +2289,11 @@ class PlayState extends MusicBeatState
 				iconP1.animation.play('bf-old');
 		}
 
+		if (FlxG.keys.justPressed.F8)
+		{
+			autoplay = !autoplay;
+		}
+
 		switch (curStage)
 		{
 			case 'philly':
@@ -2364,16 +2420,22 @@ class PlayState extends MusicBeatState
 			wiggleGame.waveFrequency += 0.0005;
 		}
 
-		playerStrums.forEach(function(spr:FlxSprite)
+		playerStrums.forEach(function(spr:FlxSkewedSprite)
 		{
-			spr.x = hudArrXPos[spr.ID]; // spr.offset.set(spr.frameWidth / 2, spr.frameHeight / 2);
-			spr.y = hudArrYPos[spr.ID];
-			if (spr.animation.curAnim.name == 'confirm')
+			if (spr.animation.curAnim.name == 'confirm' && !curStage.startsWith('school'))
 			{
-				var jj:Array<Float> = [0, 3, 72];
-				spr.x = hudArrXPos[spr.ID] + jj[mania];
-				spr.y = hudArrYPos[spr.ID] + jj[mania];
+				spr.centerOffsets();
+				spr.offset.x -= 13 * (Note.noteScale + 0.3);
+				spr.offset.y -= 13 * (Note.noteScale + 0.3);
 			}
+			else
+				spr.centerOffsets();
+		});
+
+		strumLineNotes.forEach(function(spr:FlxSkewedSprite)
+		{
+			spr.skew.x += FlxG.random.float(-1, 1);
+			spr.skew.y += FlxG.random.float(-1, 1);
 		});
 
 		if (FlxG.save.data.accuracyDisplay)
@@ -2680,6 +2742,8 @@ class PlayState extends MusicBeatState
 		{
 			notes.forEachExists(function(daNote:Note)
 			{
+				daNote.skew.x = FlxG.random.float(minScale + (curBeat / multiplier), 0.5 + (curBeat / multiplier));
+				daNote.skew.y = FlxG.random.float(minScale + (curBeat / multiplier), 0.5 + (curBeat / multiplier));
 				daNote.scale.x = FlxG.random.float(minScale + (curBeat / multiplier), 0.5 + (curBeat / multiplier));
 				daNote.scale.y = FlxG.random.float(minScale + (curBeat / multiplier), 0.5 + (curBeat / multiplier));
 
@@ -2722,7 +2786,8 @@ class PlayState extends MusicBeatState
 					filters.push(new ColorMatrixFilter(colorM));
 
 					FlxG.game.filtersEnabled = true;
-					if (FlxG.random.bool(50 - curBeat / 4))
+
+					if (FlxG.save.data.seizures)
 						FlxG.game.setFilters(filters);
 
 					// if (FlxG.random.bool(500 - curBeat / 4))
@@ -2927,7 +2992,8 @@ class PlayState extends MusicBeatState
 				// WIP interpolation shit? Need to fix the pause issue
 				// daNote.y = (strumLine.y - (songTime - daNote.strumTime) * (0.45 * PlayState.SONG.speed));
 
-				if (daNote.y < -daNote.height && !FlxG.save.data.downscroll || daNote.y >= strumLine.y + 106 && FlxG.save.data.downscroll)
+				if ((daNote.y < -daNote.height && !FlxG.save.data.downscroll || daNote.y >= strumLine.y + 106 && FlxG.save.data.downscroll)
+					&& !autoplay)
 				{
 					if (daNote.isSustainNote && daNote.wasGoodHit)
 					{
@@ -2953,8 +3019,10 @@ class PlayState extends MusicBeatState
 			});
 		}
 
-		if (!inCutscene)
+		if (!inCutscene && !autoplay)
 			keyShit();
+		else if (autoplay)
+			autoShit();
 
 		#if debug
 		if (FlxG.keys.justPressed.ONE && mania < 2)
@@ -3384,6 +3452,43 @@ class PlayState extends MusicBeatState
 	var n20Hold:Bool = false;
 
 	var reachBeat:Float;
+
+	private function autoShit():Void
+	{
+		playerStrums.forEach(function(spr:FlxSkewedSprite)
+		{
+			if (spr.animation.curAnim.name == 'confirm' && !curStage.startsWith('school'))
+			{
+				spr.centerOffsets();
+				spr.offset.x -= 13 * (Note.noteScale + 0.3);
+				spr.offset.y -= 13 * (Note.noteScale + 0.3);
+			}
+			else
+				spr.centerOffsets();
+
+			if (spr.animation.curAnim.name == 'confirm' && spr.animation.curAnim.finished)
+			{
+				spr.animation.play('static');
+				spr.centerOffsets();
+			}
+		});
+
+		notes.forEachAlive(function(daNote:Note)
+		{
+			if (daNote.y < strumLineNotes.members[daNote.noteData % keyAmmo[mania]].y)
+			{
+				// Force good note hit regardless if it's too late to hit it or not as a fail safe
+				if (daNote.canBeHit && daNote.mustPress || daNote.tooLate && daNote.mustPress)
+				{
+					goodNoteHit(daNote);
+					boyfriend.holdTimer = 0;
+					// manager2.clear();
+					misses = 0;
+					accuracy = 100.00;
+				}
+			}
+		});
+	}
 
 	private function keyShit():Void
 	{
@@ -3856,7 +3961,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		playerStrums.forEach(function(spr:FlxSprite)
+		playerStrums.forEach(function(spr:FlxSkewedSprite)
 		{
 			if (mania == 0)
 			{
@@ -3958,7 +4063,7 @@ class PlayState extends MusicBeatState
 			}
 		});
 
-		playerStrums.forEach(function(spr:FlxSprite)
+		playerStrums.forEach(function(spr:FlxSkewedSprite)
 		{
 			if (mania == 2)
 			{
@@ -4360,7 +4465,7 @@ class PlayState extends MusicBeatState
 
 			boyfriend.playAnim('sing' + sDir[note.noteData], true);
 
-			playerStrums.forEach(function(spr:FlxSprite)
+			playerStrums.forEach(function(spr:FlxSkewedSprite)
 			{
 				if (Math.abs(note.noteData) == spr.ID)
 				{
@@ -4540,11 +4645,13 @@ class PlayState extends MusicBeatState
 		if (curBeat >= 100 && curBeat % 4 == 0)
 		{
 			// fuck you
-			doGremlin(10, 1, FlxG.random.bool(50));
+			doGremlin(10, 1, false);
 			doStopSign(FlxG.random.int(0, 3), false);
-			doStopSign(FlxG.random.int(0, 3), true);
 		}
 
+		/**
+		 * TODO: Make this less bitchy
+		 */
 		if ((curBeat == 32 || curBeat == 200 || curBeat == 336 || curBeat == 464) && mania == 2)
 		{
 			FlxG.cameras.flash(0xFFFFFFFF, 0.3);
@@ -4552,10 +4659,10 @@ class PlayState extends MusicBeatState
 
 			if (curBeat >= 200)
 			{
-				wiggleGame.waveFrequency += 1;
-				wiggleGame.waveAmplitude += 1;
-				wiggleShit.waveFrequency += 15;
-				wiggleShit.waveAmplitude += 35;
+				wiggleGame.waveFrequency += 0.5;
+				wiggleGame.waveAmplitude += 0.5;
+				wiggleShit.waveFrequency += 7.5;
+				wiggleShit.waveAmplitude += 17.5;
 				wiggleWindow.waveFrequency += 0.00001;
 				wiggleWindow.waveAmplitude += 0.0001;
 			}

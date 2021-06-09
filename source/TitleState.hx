@@ -81,6 +81,9 @@ class TitleState extends MusicBeatState
 		if (FlxG.save.data.accuracyDisplay == null)
 			FlxG.save.data.accuracyDisplay = true;
 
+		if (FlxG.save.data.seizures == null)
+			FlxG.save.data.seizures == true;
+
 		FlxG.save.bind('shaggy', 'ninjamuffin99');
 
 		CachedFrames.loadEverything();
@@ -397,7 +400,7 @@ class TitleState extends MusicBeatState
 			case 5:
 				createCoolText(["Using Kade dev engine"]);
 			case 7:
-				addMoreText('Forever');
+				addMoreText('never :troll:');
 				ngSpr.visible = false;
 			// credTextShit.text += '\nNewgrounds';
 			case 8:
@@ -408,10 +411,10 @@ class TitleState extends MusicBeatState
 			// credTextShit.text = 'Shoutouts Tom Fulp';
 			// credTextShit.screenCenter();
 			case 9:
-				createCoolText(['go play']);
+				createCoolText(['deez nuts']);
 			// credTextShit.visible = true;
 			case 11:
-				addMoreText('funkin fanworks');
+				addMoreText('bitch');
 			// credTextShit.text += '\nlmao';
 			case 12:
 				deleteCoolText();

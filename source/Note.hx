@@ -1,5 +1,6 @@
 package;
 
+import flixel.addons.effects.FlxSkewedSprite;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -11,7 +12,7 @@ import polymod.format.ParseRules.TargetSignatureElement;
 
 using StringTools;
 
-class Note extends FlxSprite
+class Note extends FlxSkewedSprite
 {
 	public var strumTime:Float = 0;
 
@@ -47,7 +48,7 @@ class Note extends FlxSprite
 
 	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false)
 	{
-		swagWidth = 160 * 0.7; //factor not the same as noteScale
+		swagWidth = 160 * 0.7; // factor not the same as noteScale
 		noteScale = 0.7;
 		mania = 0;
 		if (PlayState.SONG.mania == 1)
@@ -81,7 +82,7 @@ class Note extends FlxSprite
 		this.noteData = noteData;
 
 		var addto = FlxG.save.data.offset;
-		if (Main.editor) //xd
+		if (Main.editor) // xd
 		{
 			addto = 0;
 		}
@@ -194,10 +195,15 @@ class Note extends FlxSprite
 		switch (noteData)
 		{
 			case 0:
-			//nada
+				// nada
 		}
-		if (mania == 1) frameN = ['purple', 'green', 'red', 'yellow', 'blue', 'dark'];
-		else if (mania == 2) frameN = ['mardi', 'deep', 'aqua', 'purple', 'blue', 'green', 'red', 'white', 'old', 'pink', 'lavender', 'orange', 'infra', 'blurple', 'yellow', 'violet', 'black', 'dark', 'gray', 'jonquil', 'shamrock'];
+		if (mania == 1)
+			frameN = ['purple', 'green', 'red', 'yellow', 'blue', 'dark'];
+		else if (mania == 2)
+			frameN = [
+				'mardi', 'deep', 'aqua', 'purple', 'blue', 'green', 'red', 'white', 'old', 'pink', 'lavender', 'orange', 'infra', 'blurple', 'yellow',
+				'violet', 'black', 'dark', 'gray', 'jonquil', 'shamrock'
+			];
 
 		x += swagWidth * noteData;
 		animation.play(frameN[noteData] + 'Scroll');
@@ -218,7 +224,7 @@ class Note extends FlxSprite
 			switch (noteData)
 			{
 				case 0:
-				//nada
+					// nada
 			}
 
 			updateHitbox();
@@ -233,7 +239,7 @@ class Note extends FlxSprite
 				switch (prevNote.noteData)
 				{
 					case 0:
-					//nada
+						// nada
 				}
 				prevNote.animation.play(frameN[prevNote.noteData] + 'hold');
 				prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * PlayState.SONG.speed * (0.7 / noteScale);
@@ -245,7 +251,7 @@ class Note extends FlxSprite
 
 	override function update(elapsed:Float)
 	{
-		//getStrumTime();
+		// getStrumTime();
 
 		super.update(elapsed);
 
